@@ -11,23 +11,26 @@
   <meta name="robots" content="index,follow" />
 
   <!-- Open Graph / Facebook -->
-  <!-- TODO: 배포된 실제 도메인으로 교체하세요 (예: https://finmvp.vercel.app) -->
+  <!-- NOTE: OG 메타는 보통 absolute URL 권장입니다. 다만 도메인이 확정되지 않았으면 상대경로가 더 안전합니다. -->
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ko_KR" />
   <meta property="og:site_name" content="FinMVP" />
   <meta property="og:title" content="중학생 금융 학습 플랫폼 | FinMVP 베타 테스트" />
   <meta property="og:description" content="중학생을 위한 5분 금융 학습 + 투자 시뮬레이션. 금융을 외우는 것이 아니라 경험하는 방식." />
-  <meta property="og:url" content="https://your-domain.vercel.app/" />
+  <meta property="og:url" content="/" />
   <!-- NOTE: 프로젝트 루트에 social-preview.png(1200x630)를 두고 사용하세요 -->
-  <meta property="og:image" content="https://your-domain.vercel.app/social-preview.png" />
+  <meta property="og:image" content="/social-preview.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="FinMVP - 중학생 금융 학습 플랫폼 베타 테스트" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="중학생 금융 학습 플랫폼 | FinMVP 베타 테스트" />
   <meta name="twitter:description" content="중학생을 위한 5분 금융 학습 + 투자 시뮬레이션. 금융을 외우는 것이 아니라 경험하는 방식." />
-  <meta name="twitter:image" content="https://your-domain.vercel.app/social-preview.png" />
+  <meta name="twitter:image" content="/social-preview.png" />
+  <meta name="twitter:image:alt" content="FinMVP - 중학생 금융 학습 플랫폼 베타 테스트" />
 
   <!-- GA4: 중학생 금융 학습 플랫폼 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZP3B0ED069"></script>
@@ -339,49 +342,145 @@
     }
 
     /* =========================
-      CTA Form
+      CTA (Final)
     ========================= */
     .cta-box{
       display:grid;
       gap:14px;
       padding:18px;
     }
+    .hint{
+      font-size:12px;
+      color: rgba(15,23,42,.62);
+    }
+
+    /* =========================
+      Modal + Lead form (Formspree)
+    ========================= */
+    .modal[hidden]{ display:none; }
+    .modal{
+      position:fixed;
+      inset:0;
+      z-index:999;
+      display:grid;
+      place-items:center;
+      padding:16px;
+    }
+    .modal-backdrop{
+      position:absolute;
+      inset:0;
+      background: rgba(2,6,23,.56);
+      backdrop-filter: blur(6px);
+    }
+    .modal-panel{
+      position:relative;
+      width: min(560px, 100%);
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 30px 80px rgba(2,6,23,.34);
+      overflow:hidden;
+    }
+    .modal-head{
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid rgba(15,23,42,.08);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .modal-head h2{
+      margin:0;
+      font-size: 20px;
+      letter-spacing:-0.02em;
+    }
+    .modal-close{
+      border:1px solid rgba(15,23,42,.14);
+      background: rgba(255,255,255,.70);
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight: 1000;
+      color: rgba(15,23,42,.75);
+      transition: background .16s ease, transform .16s ease, border-color .16s ease;
+    }
+    .modal-close:hover{ background: rgba(37,99,235,.08); border-color: rgba(37,99,235,.28); transform: translateY(-1px); }
+    .modal-body{ padding: 16px 18px 18px; }
+
     .form{
       display:grid;
-      gap:10px;
+      gap:12px;
     }
-    .field{
+    .row{
       display:grid;
-      gap:6px;
+      gap:12px;
     }
-    label{
-      font-size:13px;
-      color: rgba(15,23,42,.78);
-      font-weight:700;
-    }
-    input[type="email"]{
+    .field{ display:grid; gap:6px; }
+    label{ font-size:13px; color: rgba(15,23,42,.78); font-weight:800; }
+    .input, select, textarea{
       width:100%;
       padding:12px 12px;
       border-radius: 14px;
       border:1px solid rgba(15,23,42,.16);
-      background: rgba(255,255,255,.85);
+      background: rgba(255,255,255,.86);
       outline:none;
       transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease;
       font-size:16px;
     }
-    input[type="email"]:focus{
+    textarea{ resize: vertical; min-height: 90px; }
+    .input:focus, select:focus, textarea:focus{
       border-color: rgba(37,99,235,.55);
       box-shadow: 0 0 0 5px rgba(37,99,235,.14);
     }
-    .error{
+    .checkbox{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.70);
+      color: rgba(15,23,42,.78);
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+    .checkbox input{ margin-top:2px; }
+    .form-actions{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:4px;
+    }
+    .form-note{
+      font-size:12px;
+      color: rgba(15,23,42,.62);
+      font-weight: 800;
+      line-height: 1.45;
+    }
+    .form-error{
       display:none;
       color:#B91C1C;
       font-size:13px;
-      font-weight:700;
+      font-weight:900;
+      margin-bottom: 10px;
     }
-    .hint{
-      font-size:12px;
-      color: rgba(15,23,42,.62);
+    .success{
+      display:none;
+      border-radius: 18px;
+      border: 1px solid rgba(16,185,129,.30);
+      background: rgba(16,185,129,.10);
+      padding: 14px 14px;
+      color: rgba(15,23,42,.80);
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    .hp{
+      position:absolute;
+      left:-9999px;
+      width:1px;
+      height:1px;
+      overflow:hidden;
     }
 
     /* =========================
@@ -419,6 +518,8 @@
       .grid.cols-4{ grid-template-columns: repeat(4, 1fr); gap:16px; }
       .illus{ min-height: 360px; }
       .cta-box{ padding:22px; grid-template-columns: 1.1fr .9fr; align-items:center; }
+      .row{ grid-template-columns: 1fr 1fr; }
+      .form-actions{ flex-direction: row; align-items:center; justify-content:flex-start; }
     }
 
     @media (min-width: 1024px){
@@ -443,12 +544,13 @@
 
         <nav class="nav" aria-label="섹션 이동">
           <a href="#problem">문제</a>
-          <a href="#solution">해결</a>
-          <a href="#preview">사용 방식</a>
+          <a href="#audience">대상</a>
+          <a href="#preview">기능·화면</a>
           <a href="#research">리서치</a>
+          <a href="#cta">신청</a>
         </nav>
 
-        <button class="btn btn-primary" type="button" data-scroll-to="cta" aria-label="베타 신청 섹션으로 이동">
+        <button class="btn btn-primary" type="button" data-open-lead-form="header" aria-label="베타 신청 폼 열기">
           무료 베타 신청하기
         </button>
       </div>
@@ -466,13 +568,12 @@
             <span class="kicker"><span class="dot" aria-hidden="true"></span>중학생 금융 학습 플랫폼 MVP</span>
 
             <h1>
-              돈은 학교에서 배우지만<br />
-              돈을 써보는 경험은 없습니다
+              금융을 배우는 새로운 방식
             </h1>
 
             <p>
-              중학생을 위한 5분 금융 학습 + 투자 시뮬레이션<br />
-              금융을 외우는 것이 아니라 경험하는 방식
+              5분 영상 + 퀴즈 + 모의투자로<br />
+              금융 개념을 직접 경험하세요
             </p>
 
             <ul class="bullets" aria-label="핵심 기능">
@@ -482,7 +583,7 @@
             </ul>
 
             <div class="hero-actions" aria-label="주요 행동">
-              <button class="btn btn-primary" type="button" data-scroll-to="cta">
+              <button class="btn btn-primary" type="button" data-open-lead-form="hero">
                 무료 베타 신청하기
               </button>
               <a class="btn btn-ghost" href="#preview">
@@ -492,9 +593,45 @@
           </div>
 
           <!-- 간단한 일러스트 영역 (placeholder) -->
-          <div class="illus" role="img" aria-label="일러스트 영역(placeholder)">
-            <div class="illus-label">Illustration Placeholder</div>
+          <div class="illus" role="img" aria-label="모바일 UI 미리보기">
+            <div class="illus-label">모바일 UI 미리보기</div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+      1.5) AUDIENCE SECTION
+    ========================= -->
+    <section class="section" id="audience" aria-label="대상 소개">
+      <div class="container">
+        <h2>이런 분들을 위해 만들었습니다</h2>
+        <p>금융 기초를 ‘이해’가 아니라 ‘경험’으로 배우고 싶은 분들</p>
+
+        <div class="grid cols-3" aria-label="대상 카드">
+          <article class="card" style="display:flex;align-items:center;gap:14px;">
+            <div style="width:44px;height:44px;border-radius:16px;display:grid;place-items:center;background:rgba(37,99,235,.10);color:var(--primary);font-size:20px;flex:0 0 auto;">🧑‍🎓</div>
+            <div>
+              <div style="font-weight:1000;letter-spacing:-0.02em;">청소년</div>
+              <div style="margin-top:4px;color:rgba(15,23,42,.65);font-size:13px;font-weight:800;">금융 기초를 처음 배우는 학생</div>
+            </div>
+          </article>
+
+          <article class="card" style="display:flex;align-items:center;gap:14px;">
+            <div style="width:44px;height:44px;border-radius:16px;display:grid;place-items:center;background:rgba(14,165,233,.12);color:rgba(15,23,42,.85);font-size:20px;flex:0 0 auto;">💡</div>
+            <div>
+              <div style="font-weight:1000;letter-spacing:-0.02em;">초보 투자자</div>
+              <div style="margin-top:4px;color:rgba(15,23,42,.65);font-size:13px;font-weight:800;">주식과 투자의 개념이 헷갈리는 분</div>
+            </div>
+          </article>
+
+          <article class="card" style="display:flex;align-items:center;gap:14px;">
+            <div style="width:44px;height:44px;border-radius:16px;display:grid;place-items:center;background:rgba(37,99,235,.10);color:rgba(15,23,42,.85);font-size:20px;flex:0 0 auto;">🎯</div>
+            <div>
+              <div style="font-weight:1000;letter-spacing:-0.02em;">경험하고 싶은 분</div>
+              <div style="margin-top:4px;color:rgba(15,23,42,.65);font-size:13px;font-weight:800;">책으로만 배우지 말고 직접 해보고 싶은 분</div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -575,33 +712,69 @@
     ========================= -->
     <section class="section" id="preview" aria-label="서비스 사용 방식">
       <div class="container">
-        <h2>서비스 사용 방식</h2>
-        <p>사용 흐름</p>
+        <h2>핵심 기능</h2>
+        <p>짧게 배우고, 바로 확인하고, 직접 해보는 구조</p>
 
-        <div class="grid cols-4" aria-label="4단계 카드">
-          <article class="card">
-            <h3>1.</h3>
-            <p style="margin:0;color:rgba(15,23,42,.78);font-weight:800;">5분 금융 영상 시청</p>
-            <p style="margin-top:8px;">부담 없는 길이로 매일 한 번 습관화합니다.</p>
+        <div class="grid cols-4" aria-label="핵심 기능 4가지">
+          <article class="card" style="text-align:center;padding:18px;">
+            <div style="width:46px;height:46px;margin:0 auto 10px;border-radius:16px;display:grid;place-items:center;background:rgba(14,165,233,.12);font-size:22px;">⚡</div>
+            <h3 style="margin:0 0 6px;font-size:15px;font-weight:1000;">빠른 학습</h3>
+            <p style="margin:0;font-size:13px;color:rgba(15,23,42,.62);font-weight:900;">5~7분</p>
           </article>
+          <article class="card" style="text-align:center;padding:18px;">
+            <div style="width:46px;height:46px;margin:0 auto 10px;border-radius:16px;display:grid;place-items:center;background:rgba(14,165,233,.12);font-size:22px;">📊</div>
+            <h3 style="margin:0 0 6px;font-size:15px;font-weight:1000;">실시간 피드백</h3>
+            <p style="margin:0;font-size:13px;color:rgba(15,23,42,.62);font-weight:900;">즉시 확인</p>
+          </article>
+          <article class="card" style="text-align:center;padding:18px;">
+            <div style="width:46px;height:46px;margin:0 auto 10px;border-radius:16px;display:grid;place-items:center;background:rgba(14,165,233,.12);font-size:22px;">🎮</div>
+            <h3 style="margin:0 0 6px;font-size:15px;font-weight:1000;">게임 같은 경험</h3>
+            <p style="margin:0;font-size:13px;color:rgba(15,23,42,.62);font-weight:900;">재미있게</p>
+          </article>
+          <article class="card" style="text-align:center;padding:18px;">
+            <div style="width:46px;height:46px;margin:0 auto 10px;border-radius:16px;display:grid;place-items:center;background:rgba(14,165,233,.12);font-size:22px;">📈</div>
+            <h3 style="margin:0 0 6px;font-size:15px;font-weight:1000;">포트폴리오 분석</h3>
+            <p style="margin:0;font-size:13px;color:rgba(15,23,42,.62);font-weight:900;">상세한 결과</p>
+          </article>
+        </div>
 
-          <article class="card">
-            <h3>2.</h3>
-            <p style="margin:0;color:rgba(15,23,42,.78);font-weight:800;">퀴즈 풀기</p>
-            <p style="margin-top:8px;">정답/오답 피드백으로 개념을 확실히 잡습니다.</p>
-          </article>
+        <div style="display:grid;gap:16px;margin-top:16px;">
+          <div>
+            <h2 style="margin:0;">서비스 화면</h2>
+            <p style="margin-top:8px;">탭을 눌러 핵심 흐름을 빠르게 확인하세요</p>
+          </div>
 
-          <article class="card">
-            <h3>3.</h3>
-            <p style="margin:0;color:rgba(15,23,42,.78);font-weight:800;">투자 선택</p>
-            <p style="margin-top:8px;">상황에 맞게 선택하고 의사결정을 연습합니다.</p>
-          </article>
+          <div class="card" style="padding:14px;">
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-start;">
+              <button class="btn btn-ghost" type="button" data-preview-tab="home" aria-selected="true" style="border-radius:999px;padding:10px 14px;font-weight:1000;">홈</button>
+              <button class="btn btn-ghost" type="button" data-preview-tab="video" aria-selected="false" style="border-radius:999px;padding:10px 14px;font-weight:1000;">영상</button>
+              <button class="btn btn-ghost" type="button" data-preview-tab="quiz" aria-selected="false" style="border-radius:999px;padding:10px 14px;font-weight:1000;">퀴즈</button>
+              <button class="btn btn-ghost" type="button" data-preview-tab="invest" aria-selected="false" style="border-radius:999px;padding:10px 14px;font-weight:1000;">투자</button>
+              <button class="btn btn-ghost" type="button" data-preview-tab="result" aria-selected="false" style="border-radius:999px;padding:10px 14px;font-weight:1000;">결과</button>
+            </div>
 
-          <article class="card">
-            <h3>4.</h3>
-            <p style="margin:0;color:rgba(15,23,42,.78);font-weight:800;">자산 변화 확인</p>
-            <p style="margin-top:8px;">결과를 보며 리스크/보상을 자연스럽게 이해합니다.</p>
-          </article>
+            <div style="margin-top:12px;display:grid;gap:12px;align-items:start;">
+              <div class="card" style="padding:18px;text-align:center;">
+                <div id="phoneIcon" style="width:72px;height:72px;border-radius:22px;display:grid;place-items:center;background:rgba(37,99,235,.10);font-size:34px;margin:6px auto 14px;">🏠</div>
+                <div id="phoneTitle" style="font-weight:1000;letter-spacing:-0.02em;font-size:18px;">홈 화면</div>
+                <div id="phoneSub" style="margin-top:8px;color:rgba(15,23,42,.64);font-weight:900;font-size:13px;">오늘의 추천 학습과 진도를 한눈에 확인</div>
+              </div>
+
+              <div>
+                <div class="kicker"><span class="dot" aria-hidden="true"></span>화면 설명</div>
+                <p id="previewDesc" style="margin-top:10px;">홈에서 오늘의 추천 학습과 진도를 한눈에 확인합니다.</p>
+                <ul id="previewBullets" style="margin:0;padding-left:18px;color:rgba(15,23,42,.72);font-weight:800;">
+                  <li>오늘 할 콘텐츠를 바로 추천</li>
+                  <li>학습·퀴즈·투자 진행률을 한 화면에서</li>
+                  <li>처음 사용자도 길을 잃지 않게 안내</li>
+                </ul>
+                <div class="hero-actions" style="margin-top:12px;">
+                  <button class="btn btn-primary" type="button" data-open-lead-form="preview">베타 신청하고 먼저 써보기</button>
+                  <button class="btn btn-ghost" type="button" data-scroll-to="cta">신청 안내 보기</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -650,29 +823,19 @@
               지금 신청하면<br />
               서비스를 가장 먼저 체험할 수 있습니다
             </p>
-            <p class="hint">입력하신 이메일은 베타 안내 목적 외에는 사용하지 않습니다.</p>
+            <p class="hint">입력하신 정보는 베타 안내 목적 외에는 사용하지 않습니다.</p>
           </div>
 
-          <form class="form" id="betaForm" novalidate aria-label="베타 신청 폼">
-            <div class="field">
-              <label for="email">이메일 입력</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                inputmode="email"
-                autocomplete="email"
-                placeholder="example@email.com"
-                aria-describedby="emailError"
-                required
-              />
-              <div class="error" id="emailError" role="alert">올바른 이메일 형식을 입력해주세요.</div>
+          <div class="form" aria-label="베타 신청 안내">
+            <div class="card" style="padding:14px;">
+              <div style="font-weight:1000;letter-spacing:-0.02em;">신청하면 무엇을 받나요?</div>
+              <p style="margin:8px 0 0;">베타 오픈 안내 · 체험 링크 · 간단한 사용 가이드</p>
             </div>
-
-            <button class="btn btn-primary" type="submit">
-              베타 테스트 신청
+            <button class="btn btn-primary" type="button" data-open-lead-form="final">
+              베타 테스트 신청하기
             </button>
-          </form>
+            <div class="hint">약 30초면 완료됩니다.</div>
+          </div>
         </div>
       </div>
     </section>
@@ -687,13 +850,98 @@
     </footer>
   </main>
 
+  <!-- Lead capture modal (Formspree) -->
+  <div class="modal" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="leadTitle" aria-hidden="true" hidden>
+    <div class="modal-backdrop" id="leadBackdrop" aria-hidden="true"></div>
+    <div class="modal-panel" role="document">
+      <div class="modal-head">
+        <div>
+          <h2 id="leadTitle">베타 테스트 신청</h2>
+          <div class="hint" style="margin-top:4px;">간단한 정보만 입력하면 바로 신청됩니다.</div>
+        </div>
+        <button class="modal-close" type="button" id="leadClose" aria-label="닫기">닫기</button>
+      </div>
+      <div class="modal-body">
+        <div class="success" id="leadSuccess" role="status" aria-live="polite">신청이 완료되었습니다. 곧 이메일로 안내드릴게요.</div>
+        <div class="form-error" id="leadError" role="alert"></div>
+
+        <form class="form" id="leadForm" action="https://formspree.io/f/mojkwbjq" method="POST" novalidate>
+          <input type="hidden" name="source" id="leadSource" value="unknown" />
+          <input type="hidden" name="_replyto" id="leadReplyTo" value="" />
+          <input type="hidden" name="utm_source" id="lead_utm_source" value="" />
+          <input type="hidden" name="utm_medium" id="lead_utm_medium" value="" />
+          <input type="hidden" name="utm_campaign" id="lead_utm_campaign" value="" />
+          <input type="hidden" name="utm_content" id="lead_utm_content" value="" />
+          <input type="hidden" name="utm_term" id="lead_utm_term" value="" />
+          <input class="hp" id="leadHp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+
+          <div class="row">
+            <div class="field">
+              <label for="leadName">이름</label>
+              <input class="input" id="leadName" name="name" type="text" autocomplete="name" placeholder="홍길동" required />
+            </div>
+            <div class="field">
+              <label for="leadEmail">이메일</label>
+              <input class="input" id="leadEmail" name="email" type="email" inputmode="email" autocomplete="email" placeholder="example@email.com" required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="leadRole">해당 항목</label>
+              <select id="leadRole" name="role" required>
+                <option value="" selected disabled>선택해주세요</option>
+                <option value="청소년">청소년</option>
+                <option value="초보 투자자">초보 투자자</option>
+                <option value="경험하고 싶은 분">경험하고 싶은 분</option>
+                <option value="학부모/교사">학부모/교사</option>
+                <option value="기타">기타</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="leadGrade">학년(선택)</label>
+              <select id="leadGrade" name="grade">
+                <option value="" selected>선택 안 함</option>
+                <option value="초등">초등</option>
+                <option value="중1">중1</option>
+                <option value="중2">중2</option>
+                <option value="중3">중3</option>
+                <option value="고등">고등</option>
+                <option value="성인">성인</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="leadMessage">한 줄 메시지(선택)</label>
+            <textarea id="leadMessage" name="message" placeholder="어떤 점이 가장 기대되나요?"></textarea>
+          </div>
+
+          <label class="checkbox" for="leadAgree">
+            <input id="leadAgree" type="checkbox" required />
+            <span>개인정보 수집·이용에 동의합니다. (이름/이메일/선택 입력값은 베타 안내 및 개선 연락 목적으로만 사용)</span>
+          </label>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" id="leadSubmit" type="submit">신청 완료하기</button>
+            <button class="btn btn-ghost" type="button" data-scroll-to="cta">신청 안내 보기</button>
+          </div>
+
+          <div class="form-note">
+            제출이 안 될 경우, 광고 차단 확장 프로그램이 네트워크 요청을 막을 수 있어요. 잠시 비활성화 후 다시 시도해주세요.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <script>
     /**
      * 단일 파일 랜딩페이지 JS
-     * - 부드러운 스크롤 (CTA 클릭 시 CTA 섹션으로 이동)
-     * - 이메일 폼 검증 (형식 체크 + 오류 메시지)
-     * - 제출 이벤트 (완료 알림 alert)
-     * - GA4 이벤트 전송 (CTA 클릭 / 폼 제출)
+     * - 부드러운 스크롤 (data-scroll-to)
+     * - 서비스 화면 탭 (data-preview-tab)
+     * - Formspree 베타 신청 모달 (data-open-lead-form)
+     * - GA4 이벤트 전송 (CTA/탭/폼)
      */
 
     (function () {
@@ -720,42 +968,6 @@
         window.gtag("event", name, params || {});
       }
 
-      document.addEventListener("click", function (e) {
-        var target = e.target;
-        if (!(target instanceof Element)) return;
-
-        var btn = target.closest("[data-scroll-to]");
-        if (!btn) return;
-
-        var sectionId = btn.getAttribute("data-scroll-to");
-        if (!sectionId) return;
-
-        e.preventDefault();
-
-        // CTA 스크롤 버튼 클릭 이벤트 (GA4)
-        if (sectionId === "cta") {
-          trackEvent("cta_click", {
-            event_category: "engagement",
-            event_label: "beta_cta_scroll"
-          });
-        }
-
-        scrollToSection(sectionId);
-
-        // CTA 폼으로 이동한 뒤 입력 포커스 (UX)
-        if (sectionId === "cta") {
-          window.setTimeout(function () {
-            var email = document.getElementById("email");
-            if (email) email.focus();
-          }, 450);
-        }
-      });
-
-      // 이메일 검증
-      var form = document.getElementById("betaForm");
-      var emailInput = document.getElementById("email");
-      var errorEl = document.getElementById("emailError");
-
       function isValidEmail(value) {
         // 간단하지만 실용적인 이메일 형식 체크 (외부 라이브러리 없이)
         // - 공백 없음, @ 1개, 도메인에 점 포함
@@ -764,67 +976,291 @@
         return re.test(v);
       }
 
-      function showError(message) {
-        if (!errorEl) return;
-        errorEl.textContent = message;
-        errorEl.style.display = "block";
-        if (emailInput) {
-          emailInput.setAttribute("aria-invalid", "true");
+      // ===== Preview tabs (서비스 화면) =====
+      function setSelectedPreviewTab(tabKey) {
+        var btns = document.querySelectorAll("[data-preview-tab]");
+        for (var i = 0; i < btns.length; i++) {
+          var b = btns[i];
+          var selected = b.getAttribute("data-preview-tab") === tabKey;
+          b.setAttribute("aria-selected", selected ? "true" : "false");
+          b.classList.remove("btn-primary");
+          b.classList.remove("btn-ghost");
+          b.classList.add(selected ? "btn-primary" : "btn-ghost");
         }
       }
 
-      function clearError() {
-        if (!errorEl) return;
-        errorEl.style.display = "none";
-        if (emailInput) {
-          emailInput.removeAttribute("aria-invalid");
+      function setPreviewContent(tabKey) {
+        var map = {
+          home: {
+            icon: "🏠",
+            title: "홈 화면",
+            sub: "오늘의 추천 학습과 진도를 한눈에 확인",
+            desc: "홈에서 오늘의 추천 학습과 진도를 한눈에 확인합니다.",
+            bullets: [
+              "오늘 할 콘텐츠를 바로 추천",
+              "학습·퀴즈·투자 진행률을 한 화면에서",
+              "처음 사용자도 길을 잃지 않게 안내"
+            ]
+          },
+          video: {
+            icon: "🎬",
+            title: "5분 금융 영상",
+            sub: "핵심만 빠르게 배우는 마이크로 러닝",
+            desc: "짧은 영상으로 오늘의 금융 개념을 빠르게 이해합니다.",
+            bullets: ["5~7분으로 부담 없이 시작", "예시 중심 설명", "퀴즈로 자연스럽게 연결"]
+          },
+          quiz: {
+            icon: "❓",
+            title: "개념 확인 퀴즈",
+            sub: "바로 풀어보며 이해도를 체크",
+            desc: "퀴즈로 이해도를 확인하고 부족한 부분을 바로 보완합니다.",
+            bullets: ["즉시 피드백", "핵심만 재복습", "학습 데이터가 추천에 반영"]
+          },
+          invest: {
+            icon: "🪙",
+            title: "모의 투자",
+            sub: "가상의 자산으로 선택하고 결과를 경험",
+            desc: "모의투자로 의사결정을 연습하고, 결과를 통해 개념을 체득합니다.",
+            bullets: ["실제 돈이 아닌 모의 자산", "상황 기반 선택", "리스크·보상 감각 습득"]
+          },
+          result: {
+            icon: "📈",
+            title: "결과 분석",
+            sub: "왜 그런 결과가 나왔는지 쉽게 설명",
+            desc: "결과를 분석해 ‘왜’가 이해되도록 돕고, 다음 학습으로 연결합니다.",
+            bullets: ["변화 요약", "핵심 지표 설명", "개인화 추천"]
+          }
+        };
+
+        var data = map[tabKey] || map.home;
+
+        var iconEl = document.getElementById("phoneIcon");
+        var titleEl = document.getElementById("phoneTitle");
+        var subEl = document.getElementById("phoneSub");
+        var descEl = document.getElementById("previewDesc");
+        var bulletsEl = document.getElementById("previewBullets");
+
+        if (iconEl) iconEl.textContent = data.icon;
+        if (titleEl) titleEl.textContent = data.title;
+        if (subEl) subEl.textContent = data.sub;
+        if (descEl) descEl.textContent = data.desc;
+        if (bulletsEl) {
+          bulletsEl.innerHTML = "";
+          for (var i = 0; i < data.bullets.length; i++) {
+            var li = document.createElement("li");
+            li.textContent = data.bullets[i];
+            bulletsEl.appendChild(li);
+          }
         }
       }
 
-      if (emailInput) {
-        emailInput.addEventListener("input", function () {
-          // 입력 중에는 에러를 부드럽게 해제
-          if (errorEl && errorEl.style.display === "block") {
-            if (isValidEmail(emailInput.value)) clearError();
-          }
-        });
+      // 초기 상태
+      setSelectedPreviewTab("home");
+      setPreviewContent("home");
 
-        emailInput.addEventListener("blur", function () {
-          // 포커스 아웃 시에도 가볍게 검증
-          if (!emailInput.value) return;
-          if (!isValidEmail(emailInput.value)) {
-            showError("올바른 이메일 형식을 입력해주세요.");
-          } else {
-            clearError();
-          }
-        });
+      // ===== Lead modal (Formspree) =====
+      var modal = document.getElementById("leadModal");
+      var modalClose = document.getElementById("leadClose");
+      var modalBackdrop = document.getElementById("leadBackdrop");
+      var leadForm = document.getElementById("leadForm");
+      var leadSource = document.getElementById("leadSource");
+      var leadReplyTo = document.getElementById("leadReplyTo");
+      var leadError = document.getElementById("leadError");
+      var leadSuccess = document.getElementById("leadSuccess");
+      var leadSubmit = document.getElementById("leadSubmit");
+      var lastActive = null;
+
+      function showLeadError(msg) {
+        if (!leadError) return;
+        leadError.textContent = msg;
+        leadError.style.display = "block";
+      }
+      function clearLeadError() {
+        if (!leadError) return;
+        leadError.style.display = "none";
+      }
+      function setSubmitting(isSubmitting) {
+        if (!leadSubmit) return;
+        leadSubmit.disabled = !!isSubmitting;
+        leadSubmit.textContent = isSubmitting ? "전송 중..." : "신청 완료하기";
       }
 
-      if (form) {
-        form.addEventListener("submit", function (e) {
+      function getUtm() {
+        var params = new URLSearchParams(window.location.search || "");
+        return {
+          utm_source: params.get("utm_source") || "",
+          utm_medium: params.get("utm_medium") || "",
+          utm_campaign: params.get("utm_campaign") || "",
+          utm_content: params.get("utm_content") || "",
+          utm_term: params.get("utm_term") || ""
+        };
+      }
+
+      function setUtmHidden() {
+        var utm = getUtm();
+        var keys = Object.keys(utm);
+        for (var i = 0; i < keys.length; i++) {
+          var k = keys[i];
+          var el = document.getElementById("lead_" + k);
+          if (el) el.value = utm[k];
+        }
+      }
+
+      function openLeadModal(source) {
+        if (!modal) return;
+        lastActive = document.activeElement;
+        modal.hidden = false;
+        modal.setAttribute("aria-hidden", "false");
+        if (leadSource) leadSource.value = source || "unknown";
+        setUtmHidden();
+        clearLeadError();
+        if (leadSuccess) leadSuccess.style.display = "none";
+        if (leadForm) leadForm.style.display = "grid";
+        setSubmitting(false);
+        trackEvent("lead_form_open", { event_category: "engagement", source: source || "unknown" });
+        window.setTimeout(function () {
+          var first = document.getElementById("leadName");
+          if (first) first.focus();
+        }, 50);
+      }
+
+      function closeLeadModal() {
+        if (!modal) return;
+        modal.hidden = true;
+        modal.setAttribute("aria-hidden", "true");
+        if (lastActive && typeof lastActive.focus === "function") lastActive.focus();
+        lastActive = null;
+      }
+
+      if (modalBackdrop) modalBackdrop.addEventListener("click", closeLeadModal);
+      if (modalClose) modalClose.addEventListener("click", closeLeadModal);
+      document.addEventListener("keydown", function (e) {
+        if (e.key !== "Escape") return;
+        if (modal && !modal.hidden) closeLeadModal();
+      });
+
+      if (leadForm) {
+        leadForm.addEventListener("submit", function (e) {
           e.preventDefault();
+          clearLeadError();
 
-          var email = emailInput ? emailInput.value.trim() : "";
+          var nameEl = document.getElementById("leadName");
+          var emailEl = document.getElementById("leadEmail");
+          var roleEl = document.getElementById("leadRole");
+          var agreeEl = document.getElementById("leadAgree");
+          var hpEl = document.getElementById("leadHp");
+
+          var name = nameEl ? String(nameEl.value || "").trim() : "";
+          var email = emailEl ? String(emailEl.value || "").trim() : "";
+          var role = roleEl ? String(roleEl.value || "").trim() : "";
+
+          if (hpEl && String(hpEl.value || "").trim()) {
+            closeLeadModal();
+            return;
+          }
+          if (!name) {
+            showLeadError("이름을 입력해주세요.");
+            if (nameEl) nameEl.focus();
+            return;
+          }
           if (!isValidEmail(email)) {
-            showError("올바른 이메일 형식을 입력해주세요.");
-            if (emailInput) emailInput.focus();
+            showLeadError("올바른 이메일 형식을 입력해주세요.");
+            if (emailEl) emailEl.focus();
+            return;
+          }
+          if (!role) {
+            showLeadError("해당하는 항목을 선택해주세요.");
+            if (roleEl) roleEl.focus();
+            return;
+          }
+          if (agreeEl && !agreeEl.checked) {
+            showLeadError("개인정보 수집·이용에 동의해주세요.");
+            agreeEl.focus();
             return;
           }
 
-          clearError();
+          if (leadReplyTo) leadReplyTo.value = email;
 
-          // GA4: 베타 신청 완료 이벤트
-          trackEvent("beta_form_submit", {
-            event_category: "conversion",
-            event_label: "beta_cta_form"
-          });
+          var source = leadSource ? leadSource.value : "unknown";
+          trackEvent("lead_form_submit", { event_category: "conversion", source: source });
 
-          alert("감사합니다!\\n베타 테스트 신청이 완료되었습니다.");
+          setSubmitting(true);
+          fetch(leadForm.action, {
+            method: "POST",
+            headers: { Accept: "application/json" },
+            body: new FormData(leadForm)
+          })
+            .then(function (res) {
+              return res
+                .json()
+                .catch(function () {
+                  return null;
+                })
+                .then(function (json) {
+                  return { ok: res.ok, status: res.status, json: json };
+                });
+            })
+            .then(function (result) {
+              setSubmitting(false);
+              if (result.ok) {
+                leadForm.reset();
+                if (leadSuccess) leadSuccess.style.display = "block";
+                if (leadForm) leadForm.style.display = "none";
+                trackEvent("lead_form_success", { event_category: "conversion", source: source });
+                window.setTimeout(closeLeadModal, 1200);
+                return;
+              }
 
-          // 실제 MVP 검증용이라면 여기서 서버 전송을 붙일 수 있음 (현재 요구사항: 순수 단일 파일)
-          if (emailInput) emailInput.value = "";
+              if (result.status === 429) {
+                showLeadError("요청이 많아 잠시 후 다시 시도해주세요.");
+              } else {
+                showLeadError("전송에 실패했어요. 잠시 후 다시 시도해주세요.");
+              }
+              trackEvent("lead_form_error", { event_category: "error", source: source, status: result.status });
+            })
+            .catch(function () {
+              setSubmitting(false);
+              showLeadError("네트워크 오류가 발생했어요. 연결을 확인해주세요.");
+              trackEvent("lead_form_error", { event_category: "error", source: (leadSource ? leadSource.value : "unknown"), status: "network" });
+            });
         });
       }
+
+      // ===== Global click handler =====
+      document.addEventListener("click", function (e) {
+        var target = e.target;
+        if (!(target instanceof Element)) return;
+
+        var tabBtn = target.closest("[data-preview-tab]");
+        if (tabBtn) {
+          var key = tabBtn.getAttribute("data-preview-tab");
+          if (key) {
+            setSelectedPreviewTab(key);
+            setPreviewContent(key);
+            trackEvent("preview_tab_click", { event_category: "engagement", tab: key });
+          }
+          return;
+        }
+
+        var openBtn = target.closest("[data-open-lead-form]");
+        if (openBtn) {
+          e.preventDefault();
+          var source = openBtn.getAttribute("data-open-lead-form") || "unknown";
+          openLeadModal(source);
+          return;
+        }
+
+        var btn = target.closest("[data-scroll-to]");
+        if (btn) {
+          var sectionId = btn.getAttribute("data-scroll-to");
+          if (!sectionId) return;
+          e.preventDefault();
+          if (sectionId === "cta") {
+            trackEvent("cta_click", { event_category: "engagement", event_label: "beta_cta_scroll" });
+          }
+          scrollToSection(sectionId);
+        }
+      });
     })();
   </script>
 </body>

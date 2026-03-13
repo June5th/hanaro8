@@ -4,6 +4,8 @@
     { "src": "index.html", "use": "@vercel/static" }
   ],
   "routes": [
+    { "src": "/social-preview\\.png", "dest": "/social-preview.png" },
+    { "src": "/social-preview\\.svg", "dest": "/social-preview.svg" },
     { "src": "/", "dest": "/index.html" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
