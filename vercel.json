@@ -6,6 +6,7 @@
   "routes": [
     { "src": "/social-preview\\.png", "dest": "/social-preview.png" },
     { "src": "/social-preview\\.svg", "dest": "/social-preview.svg" },
+    { "src": "/screens/(.*)", "dest": "/screens/$1" },
     { "src": "/", "dest": "/index.html" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]

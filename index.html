@@ -327,6 +327,7 @@
       background:
         linear-gradient(90deg, rgba(15,23,42,.06), transparent 35%, rgba(15,23,42,.06));
       opacity:.9;
+      z-index:0;
     }
     .illus-label{
       position:absolute;
@@ -339,7 +340,231 @@
       color: rgba(15,23,42,.76);
       font-size: 13px;
       backdrop-filter: blur(10px);
+      z-index:2;
     }
+    .illus > *{
+      position:relative;
+      z-index:1;
+    }
+    .hero-shot{
+      position:absolute;
+      inset:18px;
+      display:grid;
+      place-items:center;
+      z-index:1;
+      pointer-events:none;
+    }
+    .hero-shot img{
+      width: min(420px, 92%);
+      height: auto;
+      border-radius: 20px;
+      border: 1px solid rgba(15,23,42,.14);
+      box-shadow: 0 22px 55px rgba(2,6,23,.18);
+      background: rgba(255,255,255,.75);
+    }
+
+    /* =========================
+      Toss-like section heads
+    ========================= */
+    .section-head{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-bottom: 16px;
+    }
+    .section-head p{ margin:0; }
+
+    /* =========================
+      Features + Preview (Mobile UI)
+    ========================= */
+    .feature-grid{
+      grid-template-columns: repeat(2, 1fr);
+      gap:14px;
+    }
+    .feature-card{
+      padding:18px;
+      text-align:left;
+    }
+    .feature-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 8px;
+    }
+    .feature-ico{
+      width:42px; height:42px;
+      border-radius: 16px;
+      display:grid;
+      place-items:center;
+      background: rgba(14,165,233,.12);
+      font-size:20px;
+      flex:0 0 auto;
+    }
+    .feature-card h3{
+      margin:0;
+      font-size: 15px;
+      font-weight: 1000;
+      letter-spacing:-0.02em;
+    }
+    .feature-meta{
+      margin:0;
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(15,23,42,.60);
+    }
+    .feature-outcome{
+      margin:10px 0 0;
+      color: rgba(15,23,42,.74);
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .preview-split{
+      display:grid;
+      grid-template-areas:
+        "phone"
+        "copy";
+      gap:16px;
+      margin-top: 18px;
+    }
+    .preview-copy{ grid-area: copy; }
+    .preview-phone{ grid-area: phone; }
+
+    .segmented{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      padding:8px;
+      border:1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(10px);
+      margin: 10px 0 12px;
+    }
+    .seg-btn{
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      padding:10px 14px;
+      border-radius: 999px;
+      background: transparent;
+      color: rgba(15,23,42,.70);
+      font-weight:1000;
+      letter-spacing:-0.01em;
+      transition: background .16s ease, color .16s ease, transform .16s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .seg-btn:hover{ background: rgba(37,99,235,.08); transform: translateY(-1px); }
+    .seg-btn[aria-selected="true"]{
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      box-shadow: 0 12px 20px rgba(37,99,235,.18);
+    }
+
+    .step-list{
+      display:grid;
+      gap:10px;
+    }
+    .step{
+      border-radius: var(--radius);
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.72);
+      padding: 14px 14px;
+      cursor:pointer;
+      transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease;
+    }
+    .step:hover{
+      transform: translateY(-2px);
+      border-color: rgba(37,99,235,.28);
+      box-shadow: 0 18px 36px rgba(2,6,23,.10);
+    }
+    .step[aria-current="true"]{
+      border-color: rgba(37,99,235,.40);
+      box-shadow: 0 18px 42px rgba(37,99,235,.14);
+      background: rgba(255,255,255,.88);
+    }
+    .step h3{
+      margin:0 0 6px;
+      font-size: 15px;
+      letter-spacing:-0.02em;
+    }
+    .step p{
+      margin:0 0 8px;
+      color: rgba(15,23,42,.68);
+      font-weight: 800;
+      font-size: 13px;
+    }
+    .step ul{
+      margin:0;
+      padding-left: 18px;
+      color: rgba(15,23,42,.68);
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .phone-shell{
+      border-radius: 28px;
+      border:1px solid rgba(15,23,42,.16);
+      background: rgba(15,23,42,.94);
+      box-shadow: 0 20px 50px rgba(2,6,23,.22);
+      padding:10px;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+    .phone-screen{
+      border-radius: 22px;
+      background: #F8FAFC;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      position:relative;
+    }
+    .phone-notch{
+      position:absolute;
+      left:50%;
+      top:10px;
+      transform: translateX(-50%);
+      width: 140px;
+      height: 22px;
+      border-radius: 999px;
+      background: rgba(15,23,42,.92);
+      opacity: .9;
+      z-index: 2;
+    }
+    .preview-img{
+      width:100%;
+      height:auto;
+      display:block;
+      opacity:1;
+      transition: opacity .22s ease;
+    }
+    .preview-img.is-fading{ opacity: 0; }
+
+    /* =========================
+      FAQ
+    ========================= */
+    .faq{
+      display:grid;
+      gap:10px;
+      margin-top: 14px;
+    }
+    details{
+      border-radius: var(--radius);
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.72);
+      padding: 14px 14px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight: 1000;
+      letter-spacing:-0.02em;
+      list-style:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    details p{ margin:10px 0 0; }
 
     /* =========================
       CTA (Final)
@@ -520,6 +745,17 @@
       .cta-box{ padding:22px; grid-template-columns: 1.1fr .9fr; align-items:center; }
       .row{ grid-template-columns: 1fr 1fr; }
       .form-actions{ flex-direction: row; align-items:center; justify-content:flex-start; }
+      .feature-grid{ grid-template-columns: repeat(4, 1fr); gap:16px; }
+      .preview-split{
+        grid-template-areas: "copy phone";
+        grid-template-columns: 1.05fr .95fr;
+        align-items:start;
+        gap:22px;
+      }
+      .preview-phone .phone-shell{
+        position: sticky;
+        top: 92px;
+      }
     }
 
     @media (min-width: 1024px){
@@ -547,6 +783,7 @@
           <a href="#audience">대상</a>
           <a href="#preview">기능·화면</a>
           <a href="#research">리서치</a>
+          <a href="#faq">FAQ</a>
           <a href="#cta">신청</a>
         </nav>
 
@@ -595,6 +832,9 @@
           <!-- 간단한 일러스트 영역 (placeholder) -->
           <div class="illus" role="img" aria-label="모바일 UI 미리보기">
             <div class="illus-label">모바일 UI 미리보기</div>
+            <div class="hero-shot" aria-hidden="true">
+              <img src="/screens/home.png" alt="" />
+            </div>
           </div>
         </div>
       </div>
@@ -679,29 +919,28 @@
     <!-- =========================
       3) SOLUTION SECTION
     ========================= -->
-    <section class="section" id="solution" aria-label="해결책 소개">
+    <section class="section" id="solution" aria-label="사용 흐름">
       <div class="container">
-        <h2>금융을 배우는 가장 쉬운 방법</h2>
-        <p>영상 → 퀴즈 → 투자 경험</p>
-        <p>3단계 금융 학습 플랫폼</p>
+        <div class="section-head">
+          <span class="kicker"><span class="dot" aria-hidden="true"></span>사용 흐름</span>
+          <h2>영상 → 퀴즈 → 모의투자/결과</h2>
+          <p>한 줄 요약: 짧게 배우고, 바로 확인하고, 결과로 이해합니다.</p>
+        </div>
 
         <div class="grid cols-3" aria-label="3단계 카드">
           <article class="card">
-            <h3>1</h3>
-            <p style="margin:0;color:rgba(15,23,42,.78);font-weight:800;">5분 금융 영상</p>
-            <p style="margin-top:8px;">짧고 집중도 높은 콘텐츠로 핵심 개념을 빠르게 이해합니다.</p>
+            <h3 style="margin:0 0 8px;">1) 영상</h3>
+            <p style="margin:0;">5분 영상으로 오늘의 금융 개념을 쉽고 빠르게 이해합니다.</p>
           </article>
 
           <article class="card">
-            <h3>2</h3>
-            <p style="margin:0;color:rgba(15,23,42,.78);font-weight:800;">개념 확인 퀴즈</p>
-            <p style="margin-top:8px;">바로 풀어보며 이해도를 확인하고, 기억을 강화합니다.</p>
+            <h3 style="margin:0 0 8px;">2) 퀴즈</h3>
+            <p style="margin:0;">퀴즈로 이해도를 확인하고, 즉시 피드백으로 기억을 강화합니다.</p>
           </article>
 
           <article class="card">
-            <h3>3</h3>
-            <p style="margin:0;color:rgba(15,23,42,.78);font-weight:800;">투자 시뮬레이션</p>
-            <p style="margin-top:8px;">가상의 자산으로 선택하고 결과를 보며 ‘경험’으로 학습합니다.</p>
+            <h3 style="margin:0 0 8px;">3) 모의투자/결과</h3>
+            <p style="margin:0;">선택과 결과를 경험하며 리스크·보상을 자연스럽게 이해합니다.</p>
           </article>
         </div>
       </div>
@@ -712,67 +951,142 @@
     ========================= -->
     <section class="section" id="preview" aria-label="서비스 사용 방식">
       <div class="container">
-        <h2>핵심 기능</h2>
-        <p>짧게 배우고, 바로 확인하고, 직접 해보는 구조</p>
+        <div class="section-head">
+          <span class="kicker"><span class="dot" aria-hidden="true"></span>핵심 기능</span>
+          <h2>빠르게 이해하고, 바로 경험합니다</h2>
+          <p>기능 → 화면 예시로 단계적으로 연결해, 10초 안에 “누가/무엇을/어떻게”가 보이게 만들었습니다.</p>
+        </div>
 
-        <div class="grid cols-4" aria-label="핵심 기능 4가지">
-          <article class="card" style="text-align:center;padding:18px;">
-            <div style="width:46px;height:46px;margin:0 auto 10px;border-radius:16px;display:grid;place-items:center;background:rgba(14,165,233,.12);font-size:22px;">⚡</div>
-            <h3 style="margin:0 0 6px;font-size:15px;font-weight:1000;">빠른 학습</h3>
-            <p style="margin:0;font-size:13px;color:rgba(15,23,42,.62);font-weight:900;">5~7분</p>
+        <div class="grid feature-grid" aria-label="핵심 기능 4가지">
+          <article class="card feature-card">
+            <div class="feature-top">
+              <div>
+                <h3>빠른 학습</h3>
+                <p class="feature-meta">5~7분</p>
+              </div>
+              <div class="feature-ico" aria-hidden="true">⚡</div>
+            </div>
+            <p class="feature-outcome">짧게 시작해서, 꾸준히 이어갈 수 있어요.</p>
           </article>
-          <article class="card" style="text-align:center;padding:18px;">
-            <div style="width:46px;height:46px;margin:0 auto 10px;border-radius:16px;display:grid;place-items:center;background:rgba(14,165,233,.12);font-size:22px;">📊</div>
-            <h3 style="margin:0 0 6px;font-size:15px;font-weight:1000;">실시간 피드백</h3>
-            <p style="margin:0;font-size:13px;color:rgba(15,23,42,.62);font-weight:900;">즉시 확인</p>
+
+          <article class="card feature-card">
+            <div class="feature-top">
+              <div>
+                <h3>실시간 피드백</h3>
+                <p class="feature-meta">즉시 확인</p>
+              </div>
+              <div class="feature-ico" aria-hidden="true">📊</div>
+            </div>
+            <p class="feature-outcome">정답/오답을 바로 알고, 이해를 보완해요.</p>
           </article>
-          <article class="card" style="text-align:center;padding:18px;">
-            <div style="width:46px;height:46px;margin:0 auto 10px;border-radius:16px;display:grid;place-items:center;background:rgba(14,165,233,.12);font-size:22px;">🎮</div>
-            <h3 style="margin:0 0 6px;font-size:15px;font-weight:1000;">게임 같은 경험</h3>
-            <p style="margin:0;font-size:13px;color:rgba(15,23,42,.62);font-weight:900;">재미있게</p>
+
+          <article class="card feature-card">
+            <div class="feature-top">
+              <div>
+                <h3>게임 같은 경험</h3>
+                <p class="feature-meta">재미있게</p>
+              </div>
+              <div class="feature-ico" aria-hidden="true">🎮</div>
+            </div>
+            <p class="feature-outcome">‘해보는 과정’이 학습 동기가 됩니다.</p>
           </article>
-          <article class="card" style="text-align:center;padding:18px;">
-            <div style="width:46px;height:46px;margin:0 auto 10px;border-radius:16px;display:grid;place-items:center;background:rgba(14,165,233,.12);font-size:22px;">📈</div>
-            <h3 style="margin:0 0 6px;font-size:15px;font-weight:1000;">포트폴리오 분석</h3>
-            <p style="margin:0;font-size:13px;color:rgba(15,23,42,.62);font-weight:900;">상세한 결과</p>
+
+          <article class="card feature-card">
+            <div class="feature-top">
+              <div>
+                <h3>포트폴리오 분석</h3>
+                <p class="feature-meta">상세한 결과</p>
+              </div>
+              <div class="feature-ico" aria-hidden="true">📈</div>
+            </div>
+            <p class="feature-outcome">왜 그런 결과가 나왔는지 쉽게 이해해요.</p>
           </article>
         </div>
 
-        <div style="display:grid;gap:16px;margin-top:16px;">
-          <div>
-            <h2 style="margin:0;">서비스 화면</h2>
-            <p style="margin-top:8px;">탭을 눌러 핵심 흐름을 빠르게 확인하세요</p>
+        <div class="preview-split" aria-label="서비스 화면">
+          <div class="preview-phone">
+            <div class="phone-shell" aria-label="서비스 화면 목업">
+              <div class="phone-screen">
+                <div class="phone-notch" aria-hidden="true"></div>
+                <img id="previewImage" class="preview-img" src="/screens/home.png" alt="FinMVP 홈 화면 예시" />
+              </div>
+            </div>
           </div>
 
-          <div class="card" style="padding:14px;">
-            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-start;">
-              <button class="btn btn-ghost" type="button" data-preview-tab="home" aria-selected="true" style="border-radius:999px;padding:10px 14px;font-weight:1000;">홈</button>
-              <button class="btn btn-ghost" type="button" data-preview-tab="video" aria-selected="false" style="border-radius:999px;padding:10px 14px;font-weight:1000;">영상</button>
-              <button class="btn btn-ghost" type="button" data-preview-tab="quiz" aria-selected="false" style="border-radius:999px;padding:10px 14px;font-weight:1000;">퀴즈</button>
-              <button class="btn btn-ghost" type="button" data-preview-tab="invest" aria-selected="false" style="border-radius:999px;padding:10px 14px;font-weight:1000;">투자</button>
-              <button class="btn btn-ghost" type="button" data-preview-tab="result" aria-selected="false" style="border-radius:999px;padding:10px 14px;font-weight:1000;">결과</button>
+          <div class="preview-copy">
+            <div class="section-head">
+              <span class="kicker"><span class="dot" aria-hidden="true"></span>서비스 화면</span>
+              <h2>모바일 UI로 신뢰와 구체성을 더합니다</h2>
+              <p id="previewDesc">홈에서 오늘의 추천 학습과 진도를 한눈에 확인합니다.</p>
             </div>
 
-            <div style="margin-top:12px;display:grid;gap:12px;align-items:start;">
-              <div class="card" style="padding:18px;text-align:center;">
-                <div id="phoneIcon" style="width:72px;height:72px;border-radius:22px;display:grid;place-items:center;background:rgba(37,99,235,.10);font-size:34px;margin:6px auto 14px;">🏠</div>
-                <div id="phoneTitle" style="font-weight:1000;letter-spacing:-0.02em;font-size:18px;">홈 화면</div>
-                <div id="phoneSub" style="margin-top:8px;color:rgba(15,23,42,.64);font-weight:900;font-size:13px;">오늘의 추천 학습과 진도를 한눈에 확인</div>
-              </div>
+            <div class="segmented" role="tablist" aria-label="서비스 화면 탭">
+              <button class="seg-btn" type="button" role="tab" aria-selected="true" data-preview-tab="home">홈</button>
+              <button class="seg-btn" type="button" role="tab" aria-selected="false" data-preview-tab="video">영상</button>
+              <button class="seg-btn" type="button" role="tab" aria-selected="false" data-preview-tab="quiz">퀴즈</button>
+              <button class="seg-btn" type="button" role="tab" aria-selected="false" data-preview-tab="invest">투자</button>
+              <button class="seg-btn" type="button" role="tab" aria-selected="false" data-preview-tab="result">결과</button>
+            </div>
 
-              <div>
-                <div class="kicker"><span class="dot" aria-hidden="true"></span>화면 설명</div>
-                <p id="previewDesc" style="margin-top:10px;">홈에서 오늘의 추천 학습과 진도를 한눈에 확인합니다.</p>
-                <ul id="previewBullets" style="margin:0;padding-left:18px;color:rgba(15,23,42,.72);font-weight:800;">
+            <div class="step-list" id="previewSteps" aria-label="화면별 설명(스크롤로 전환)">
+              <article class="step" data-preview-step="home" aria-current="true" tabindex="0">
+                <h3>홈</h3>
+                <p>이 화면에서 무엇을/왜/어떻게</p>
+                <ul>
                   <li>오늘 할 콘텐츠를 바로 추천</li>
                   <li>학습·퀴즈·투자 진행률을 한 화면에서</li>
                   <li>처음 사용자도 길을 잃지 않게 안내</li>
                 </ul>
-                <div class="hero-actions" style="margin-top:12px;">
-                  <button class="btn btn-primary" type="button" data-open-lead-form="preview">베타 신청하고 먼저 써보기</button>
-                  <button class="btn btn-ghost" type="button" data-scroll-to="cta">신청 안내 보기</button>
-                </div>
-              </div>
+              </article>
+
+              <article class="step" data-preview-step="video" aria-current="false" tabindex="0">
+                <h3>영상</h3>
+                <p>핵심만 빠르게 배우고 다음 단계로 연결</p>
+                <ul>
+                  <li>5~7분 마이크로 러닝으로 부담 없이 시작</li>
+                  <li>예시 중심으로 개념을 빠르게 이해</li>
+                  <li>바로 퀴즈로 이어져 학습이 고정</li>
+                </ul>
+              </article>
+
+              <article class="step" data-preview-step="quiz" aria-current="false" tabindex="0">
+                <h3>퀴즈</h3>
+                <p>즉시 피드백으로 이해도를 확인</p>
+                <ul>
+                  <li>정답/오답을 바로 확인</li>
+                  <li>틀린 개념은 핵심만 다시 복습</li>
+                  <li>결과가 다음 추천에 반영</li>
+                </ul>
+              </article>
+
+              <article class="step" data-preview-step="invest" aria-current="false" tabindex="0">
+                <h3>투자</h3>
+                <p>모의투자로 의사결정을 ‘경험’</p>
+                <ul>
+                  <li>실제 돈이 아닌 모의 자산으로 안전하게</li>
+                  <li>상황 기반 선택으로 사고력 강화</li>
+                  <li>리스크·보상을 결과로 체감</li>
+                </ul>
+              </article>
+
+              <article class="step" data-preview-step="result" aria-current="false" tabindex="0">
+                <h3>결과</h3>
+                <p>‘왜’가 이해되게 정리하고 다음 학습으로</p>
+                <ul>
+                  <li>변화를 요약해 한눈에 확인</li>
+                  <li>핵심 지표를 쉬운 언어로 설명</li>
+                  <li>개인화 추천으로 반복 학습</li>
+                </ul>
+              </article>
+            </div>
+
+            <div class="hero-actions" style="margin-top:14px;">
+              <button class="btn btn-primary" type="button" data-open-lead-form="preview">
+                베타 신청하고 먼저 써보기
+              </button>
+              <button class="btn btn-ghost" type="button" data-scroll-to="cta">
+                신청 안내 보기
+              </button>
             </div>
           </div>
         </div>
@@ -784,7 +1098,11 @@
     ========================= -->
     <section class="section" id="research" aria-label="학생 리서치 결과">
       <div class="container">
-        <h2>학생 리서치 결과</h2>
+        <div class="section-head">
+          <span class="kicker"><span class="dot" aria-hidden="true"></span>리서치</span>
+          <h2>학생 리서치 결과</h2>
+          <p>짧은 콘텐츠와 ‘게임 같은 경험’에 대한 선호가 높았습니다.</p>
+        </div>
 
         <div class="grid cols-3" aria-label="리서치 데이터 카드">
           <article class="card stat">
@@ -836,6 +1154,38 @@
             </button>
             <div class="hint">약 30초면 완료됩니다.</div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+      5.5) FAQ
+    ========================= -->
+    <section class="section" id="faq" aria-label="자주 묻는 질문">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker"><span class="dot" aria-hidden="true"></span>신뢰</span>
+          <h2>자주 묻는 질문</h2>
+          <p>베타 참여 전에 궁금한 내용을 미리 정리했어요.</p>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>무료인가요?</summary>
+            <p>현재 베타 기간에는 무료로 제공할 예정입니다. 정식 출시 후에는 일부 기능에 유료 플랜이 도입될 수 있어요.</p>
+          </details>
+          <details>
+            <summary>권장 연령은 어떻게 되나요?</summary>
+            <p>중학생 사용을 중심으로 설계했지만, 금융 기초를 처음 배우는 누구나 사용할 수 있습니다.</p>
+          </details>
+          <details>
+            <summary>투자 위험이 있나요? 실제 투자예요?</summary>
+            <p>실제 돈이 아닌 모의 자산으로 진행하는 시뮬레이션입니다. 위험 없이 개념과 의사결정을 연습할 수 있어요.</p>
+          </details>
+          <details>
+            <summary>데이터/개인정보는 어떻게 쓰나요?</summary>
+            <p>베타 안내 및 제품 개선 연락 목적으로만 사용합니다. 자세한 내용은 신청 폼의 안내 문구를 확인해주세요.</p>
+          </details>
         </div>
       </div>
     </section>
@@ -983,80 +1333,68 @@
           var b = btns[i];
           var selected = b.getAttribute("data-preview-tab") === tabKey;
           b.setAttribute("aria-selected", selected ? "true" : "false");
-          b.classList.remove("btn-primary");
-          b.classList.remove("btn-ghost");
-          b.classList.add(selected ? "btn-primary" : "btn-ghost");
         }
       }
 
       function setPreviewContent(tabKey) {
         var map = {
           home: {
-            icon: "🏠",
-            title: "홈 화면",
-            sub: "오늘의 추천 학습과 진도를 한눈에 확인",
             desc: "홈에서 오늘의 추천 학습과 진도를 한눈에 확인합니다.",
-            bullets: [
-              "오늘 할 콘텐츠를 바로 추천",
-              "학습·퀴즈·투자 진행률을 한 화면에서",
-              "처음 사용자도 길을 잃지 않게 안내"
-            ]
+            img: "/screens/home.png",
+            alt: "FinMVP 홈 화면 예시"
           },
           video: {
-            icon: "🎬",
-            title: "5분 금융 영상",
-            sub: "핵심만 빠르게 배우는 마이크로 러닝",
             desc: "짧은 영상으로 오늘의 금융 개념을 빠르게 이해합니다.",
-            bullets: ["5~7분으로 부담 없이 시작", "예시 중심 설명", "퀴즈로 자연스럽게 연결"]
+            img: "/screens/video.png",
+            alt: "FinMVP 영상 화면 예시"
           },
           quiz: {
-            icon: "❓",
-            title: "개념 확인 퀴즈",
-            sub: "바로 풀어보며 이해도를 체크",
             desc: "퀴즈로 이해도를 확인하고 부족한 부분을 바로 보완합니다.",
-            bullets: ["즉시 피드백", "핵심만 재복습", "학습 데이터가 추천에 반영"]
+            img: "/screens/quiz.png",
+            alt: "FinMVP 퀴즈 화면 예시"
           },
           invest: {
-            icon: "🪙",
-            title: "모의 투자",
-            sub: "가상의 자산으로 선택하고 결과를 경험",
             desc: "모의투자로 의사결정을 연습하고, 결과를 통해 개념을 체득합니다.",
-            bullets: ["실제 돈이 아닌 모의 자산", "상황 기반 선택", "리스크·보상 감각 습득"]
+            img: "/screens/invest.png",
+            alt: "FinMVP 투자 화면 예시"
           },
           result: {
-            icon: "📈",
-            title: "결과 분석",
-            sub: "왜 그런 결과가 나왔는지 쉽게 설명",
             desc: "결과를 분석해 ‘왜’가 이해되도록 돕고, 다음 학습으로 연결합니다.",
-            bullets: ["변화 요약", "핵심 지표 설명", "개인화 추천"]
+            img: "/screens/result.png",
+            alt: "FinMVP 결과 화면 예시"
           }
         };
 
         var data = map[tabKey] || map.home;
 
-        var iconEl = document.getElementById("phoneIcon");
-        var titleEl = document.getElementById("phoneTitle");
-        var subEl = document.getElementById("phoneSub");
         var descEl = document.getElementById("previewDesc");
-        var bulletsEl = document.getElementById("previewBullets");
-
-        if (iconEl) iconEl.textContent = data.icon;
-        if (titleEl) titleEl.textContent = data.title;
-        if (subEl) subEl.textContent = data.sub;
         if (descEl) descEl.textContent = data.desc;
-        if (bulletsEl) {
-          bulletsEl.innerHTML = "";
-          for (var i = 0; i < data.bullets.length; i++) {
-            var li = document.createElement("li");
-            li.textContent = data.bullets[i];
-            bulletsEl.appendChild(li);
-          }
+
+        var imgEl = document.getElementById("previewImage");
+        if (imgEl) {
+          imgEl.classList.add("is-fading");
+          window.setTimeout(function () {
+            imgEl.src = data.img;
+            imgEl.alt = data.alt;
+            window.setTimeout(function () {
+              imgEl.classList.remove("is-fading");
+            }, 10);
+          }, 140);
         }
       }
 
       // 초기 상태
       setSelectedPreviewTab("home");
       setPreviewContent("home");
+
+      function setCurrentStep(tabKey) {
+        var steps = document.querySelectorAll("[data-preview-step]");
+        for (var i = 0; i < steps.length; i++) {
+          var s = steps[i];
+          var isCurrent = s.getAttribute("data-preview-step") === tabKey;
+          s.setAttribute("aria-current", isCurrent ? "true" : "false");
+        }
+      }
 
       // ===== Lead modal (Formspree) =====
       var modal = document.getElementById("leadModal");
@@ -1117,6 +1455,7 @@
         if (leadSuccess) leadSuccess.style.display = "none";
         if (leadForm) leadForm.style.display = "grid";
         setSubmitting(false);
+        trackEvent("cta_click", { event_category: "engagement", location: source || "unknown" });
         trackEvent("lead_form_open", { event_category: "engagement", source: source || "unknown" });
         window.setTimeout(function () {
           var first = document.getElementById("leadName");
@@ -1237,7 +1576,26 @@
           if (key) {
             setSelectedPreviewTab(key);
             setPreviewContent(key);
-            trackEvent("preview_tab_click", { event_category: "engagement", tab: key });
+            setCurrentStep(key);
+            trackEvent("preview_tab_click", { event_category: "engagement", tab: key, method: "click" });
+
+            var stepEl = document.querySelector('[data-preview-step="' + key + '"]');
+            var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (stepEl && !reduce && typeof stepEl.scrollIntoView === "function") {
+              stepEl.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          }
+          return;
+        }
+
+        var stepBtn = target.closest("[data-preview-step]");
+        if (stepBtn) {
+          var stepKey = stepBtn.getAttribute("data-preview-step");
+          if (stepKey) {
+            setSelectedPreviewTab(stepKey);
+            setPreviewContent(stepKey);
+            setCurrentStep(stepKey);
+            trackEvent("preview_tab_click", { event_category: "engagement", tab: stepKey, method: "step_click" });
           }
           return;
         }
@@ -1256,11 +1614,62 @@
           if (!sectionId) return;
           e.preventDefault();
           if (sectionId === "cta") {
-            trackEvent("cta_click", { event_category: "engagement", event_label: "beta_cta_scroll" });
+            trackEvent("cta_click", { event_category: "engagement", location: "scroll" });
           }
           scrollToSection(sectionId);
         }
       });
+
+      // ===== Scroll auto switching (optional, Toss-like) =====
+      (function () {
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var previewRoot = document.getElementById("preview");
+        if (!previewRoot) return;
+
+        var didAutoplayView = false;
+        function markAutoplayView() {
+          if (didAutoplayView) return;
+          didAutoplayView = true;
+          trackEvent("preview_autoplay_view", { event_category: "engagement" });
+        }
+
+        if (!("IntersectionObserver" in window)) return;
+
+        var previewViewObs = new IntersectionObserver(
+          function (entries) {
+            for (var i = 0; i < entries.length; i++) {
+              if (entries[i].isIntersecting) markAutoplayView();
+            }
+          },
+          { threshold: 0.35 }
+        );
+        previewViewObs.observe(previewRoot);
+
+        if (reduce) return;
+
+        var activeKey = "home";
+        var steps = document.querySelectorAll("[data-preview-step]");
+        var stepObs = new IntersectionObserver(
+          function (entries) {
+            var best = null;
+            for (var i = 0; i < entries.length; i++) {
+              var en = entries[i];
+              if (!en.isIntersecting) continue;
+              if (!best || en.intersectionRatio > best.intersectionRatio) best = en;
+            }
+            if (!best) return;
+            var key = best.target.getAttribute("data-preview-step");
+            if (!key || key === activeKey) return;
+            activeKey = key;
+            setSelectedPreviewTab(key);
+            setPreviewContent(key);
+            setCurrentStep(key);
+            trackEvent("preview_tab_click", { event_category: "engagement", tab: key, method: "auto" });
+          },
+          { threshold: [0.55, 0.7, 0.85] }
+        );
+        for (var j = 0; j < steps.length; j++) stepObs.observe(steps[j]);
+      })();
     })();
   </script>
 </body>
