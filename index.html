@@ -731,9 +731,10 @@
       .section{ padding:72px 0; }
       .nav{ display:flex; }
       .hero-wrap{
-        grid-template-columns: 1.12fr .88fr;
+        grid-template-columns: 1fr;
         gap:20px;
       }
+      .hero-copy{ max-width: 760px; }
       .hero-actions{
         flex-direction:row;
         align-items:center;
@@ -829,13 +830,7 @@
             </div>
           </div>
 
-          <!-- 간단한 일러스트 영역 (placeholder) -->
-          <div class="illus" role="img" aria-label="모바일 UI 미리보기">
-            <div class="illus-label">모바일 UI 미리보기</div>
-            <div class="hero-shot" aria-hidden="true">
-              <img src="/screens/home.png" alt="" />
-            </div>
-          </div>
+          <!-- (우측 모바일 미리보기 패널 제거: 공란으로 보이는 이슈 방지) -->
         </div>
       </div>
     </section>
