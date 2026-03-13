@@ -670,6 +670,7 @@
      * - 부드러운 스크롤 (CTA 클릭 시 CTA 섹션으로 이동)
      * - 이메일 폼 검증 (형식 체크 + 오류 메시지)
      * - 제출 이벤트 (완료 알림 alert)
+     * - GA4 이벤트 전송 (CTA 클릭 / 폼 제출)
      */
 
     (function () {
@@ -690,6 +691,12 @@
         window.scrollTo({ top: top, behavior: "smooth" });
       }
 
+      // GA4 이벤트 헬퍼 (gtag가 없을 때도 에러 없이 동작)
+      function trackEvent(name, params) {
+        if (typeof window.gtag !== "function") return;
+        window.gtag("event", name, params || {});
+      }
+
       document.addEventListener("click", function (e) {
         var target = e.target;
         if (!(target instanceof Element)) return;
@@ -701,6 +708,15 @@
         if (!sectionId) return;
 
         e.preventDefault();
+
+        // CTA 스크롤 버튼 클릭 이벤트 (GA4)
+        if (sectionId === "cta") {
+          trackEvent("cta_click", {
+            event_category: "engagement",
+            event_label: "beta_cta_scroll"
+          });
+        }
+
         scrollToSection(sectionId);
 
         // CTA 폼으로 이동한 뒤 입력 포커스 (UX)
@@ -773,6 +789,12 @@
           }
 
           clearError();
+
+          // GA4: 베타 신청 완료 이벤트
+          trackEvent("beta_form_submit", {
+            event_category: "conversion",
+            event_label: "beta_cta_form"
+          });
 
           alert("감사합니다!\\n베타 테스트 신청이 완료되었습니다.");
 
