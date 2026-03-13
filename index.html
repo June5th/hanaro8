@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="중학생을 위한 5분 금융 학습 + 투자 시뮬레이션 베타 테스트 신청" />
+  <title>중학생 금융 학습 플랫폼 | 베타 테스트 신청</title>
+
+  <style>
+    /* =========================
+      Design Tokens
+    ========================= */
+    :root{
+      --primary:#2563EB;
+      --secondary:#0EA5E9;
+      --bg:#F8FAFC;
+      --text:#0F172A;
+
+      --card:#FFFFFF;
+      --border: rgba(15, 23, 42, .10);
+      --muted: rgba(15, 23, 42, .70);
+
+      --shadow: 0 12px 30px rgba(2, 6, 23, .08);
+      --shadowHover: 0 18px 42px rgba(2, 6, 23, .12);
+
+      --radius: 16px;
+      --radiusSm: 12px;
+
+      --container: 1120px;
+    }
+
+    /* =========================
+      Base
+    ========================= */
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(14,165,233,.18), transparent 55%),
+                  radial-gradient(900px 600px at 90% 0%, rgba(37,99,235,.16), transparent 55%),
+                  var(--bg);
+      line-height:1.5;
+    }
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+
+    .container{
+      width:100%;
+      max-width:var(--container);
+      margin:0 auto;
+      padding:0 16px;
+    }
+
+    .section{
+      padding:56px 0;
+    }
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:rgba(255,255,255,.7);
+      backdrop-filter: blur(10px);
+      font-size:12px;
+      color:rgba(15,23,42,.75);
+    }
+    .dot{
+      width:8px; height:8px;
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--secondary), var(--primary));
+      box-shadow: 0 0 0 4px rgba(14,165,233,.12);
+    }
+
+    h1,h2,h3{ margin:0 0 12px; letter-spacing:-0.02em; }
+    h1{
+      font-size: clamp(28px, 4.6vw, 44px);
+      line-height:1.15;
+    }
+    h2{
+      font-size: clamp(20px, 3.4vw, 32px);
+      line-height:1.2;
+    }
+    p{ margin:0 0 14px; color:var(--muted); }
+
+    .grid{
+      display:grid;
+      gap:14px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:16px;
+      box-shadow: 0 2px 0 rgba(2,6,23,.02);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .card:hover{
+      transform: translateY(-4px);
+      box-shadow: var(--shadowHover);
+      border-color: rgba(37,99,235,.28);
+    }
+
+    .stat{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .stat strong{
+      font-size:24px;
+      letter-spacing:-0.03em;
+      color:var(--text);
+    }
+    .stat span{
+      font-size:13px;
+      color:rgba(15,23,42,.72);
+    }
+
+    /* =========================
+      Header (Sticky)
+    ========================= */
+    .header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      border-bottom:1px solid rgba(15,23,42,.08);
+      background:rgba(248,250,252,.75);
+      backdrop-filter: blur(12px);
+    }
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:-0.02em;
+    }
+    .logo{
+      width:34px; height:34px;
+      border-radius:10px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 10px 18px rgba(37,99,235,.18);
+    }
+    .nav{
+      display:none;
+      gap:14px;
+      font-size:14px;
+      color:rgba(15,23,42,.72);
+    }
+    .nav a{
+      padding:8px 10px;
+      border-radius:10px;
+      transition: background .18s ease, color .18s ease;
+    }
+    .nav a:hover{
+      background: rgba(37,99,235,.10);
+      color: var(--text);
+    }
+
+    /* =========================
+      Buttons
+    ========================= */
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border:0;
+      cursor:pointer;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-weight:700;
+      letter-spacing:-0.01em;
+      transition: transform .16s ease, box-shadow .16s ease, filter .16s ease, background .16s ease, border-color .16s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:active{ transform: translateY(1px); }
+
+    .btn-primary{
+      color:white;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 14px 28px rgba(37,99,235,.18);
+    }
+    .btn-primary:hover{
+      filter: brightness(1.02);
+      box-shadow: 0 18px 36px rgba(37,99,235,.24);
+      transform: translateY(-1px);
+    }
+    .btn-ghost{
+      background: rgba(255,255,255,.7);
+      border:1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-ghost:hover{
+      border-color: rgba(37,99,235,.28);
+      background: rgba(37,99,235,.08);
+      transform: translateY(-1px);
+    }
+
+    /* =========================
+      Hero
+    ========================= */
+    .hero{
+      padding-top:26px;
+      padding-bottom:34px;
+    }
+    .hero-wrap{
+      display:grid;
+      gap:16px;
+      align-items:center;
+    }
+    .hero-copy{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .bullets{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+      color: rgba(15,23,42,.78);
+    }
+    .bullets li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:10px 12px;
+      border:1px dashed rgba(15,23,42,.14);
+      border-radius: 14px;
+      background: rgba(255,255,255,.55);
+      transition: border-color .18s ease, transform .18s ease;
+    }
+    .bullets li:hover{
+      border-color: rgba(14,165,233,.35);
+      transform: translateY(-2px);
+    }
+    .check{
+      flex:0 0 auto;
+      width:22px; height:22px;
+      border-radius: 8px;
+      display:grid;
+      place-items:center;
+      background: rgba(14,165,233,.14);
+      color: var(--primary);
+      font-weight:900;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:stretch;
+      margin-top:6px;
+    }
+
+    .illus{
+      border-radius: var(--radius);
+      border:1px solid var(--border);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.62)),
+        radial-gradient(700px 220px at 40% 20%, rgba(14,165,233,.22), transparent 55%),
+        radial-gradient(700px 280px at 70% 80%, rgba(37,99,235,.18), transparent 60%);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      min-height: 240px;
+      position:relative;
+    }
+    .illus::before{
+      content:"";
+      position:absolute;
+      inset:18px;
+      border-radius: 14px;
+      border:1px dashed rgba(15,23,42,.18);
+      background:
+        linear-gradient(90deg, rgba(15,23,42,.06), transparent 35%, rgba(15,23,42,.06));
+      opacity:.9;
+    }
+    .illus-label{
+      position:absolute;
+      left:18px;
+      bottom:18px;
+      padding:10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.78);
+      border:1px solid var(--border);
+      color: rgba(15,23,42,.76);
+      font-size: 13px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* =========================
+      CTA Form
+    ========================= */
+    .cta-box{
+      display:grid;
+      gap:14px;
+      padding:18px;
+    }
+    .form{
+      display:grid;
+      gap:10px;
+    }
+    .field{
+      display:grid;
+      gap:6px;
+    }
+    label{
+      font-size:13px;
+      color: rgba(15,23,42,.78);
+      font-weight:700;
+    }
+    input[type="email"]{
+      width:100%;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(15,23,42,.16);
+      background: rgba(255,255,255,.85);
+      outline:none;
+      transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease;
+      font-size:16px;
+    }
+    input[type="email"]:focus{
+      border-color: rgba(37,99,235,.55);
+      box-shadow: 0 0 0 5px rgba(37,99,235,.14);
+    }
+    .error{
+      display:none;
+      color:#B91C1C;
+      font-size:13px;
+      font-weight:700;
+    }
+    .hint{
+      font-size:12px;
+      color: rgba(15,23,42,.62);
+    }
+
+    /* =========================
+      Footer
+    ========================= */
+    .footer{
+      padding:30px 0 46px;
+      color: rgba(15,23,42,.55);
+      font-size: 13px;
+    }
+    .footer-inner{
+      border-top:1px solid rgba(15,23,42,.08);
+      padding-top:16px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    /* =========================
+      Responsive
+    ========================= */
+    @media (min-width: 720px){
+      .section{ padding:72px 0; }
+      .nav{ display:flex; }
+      .hero-wrap{
+        grid-template-columns: 1.12fr .88fr;
+        gap:20px;
+      }
+      .hero-actions{
+        flex-direction:row;
+        align-items:center;
+        justify-content:flex-start;
+      }
+      .grid.cols-3{ grid-template-columns: repeat(3, 1fr); gap:16px; }
+      .grid.cols-4{ grid-template-columns: repeat(4, 1fr); gap:16px; }
+      .illus{ min-height: 360px; }
+      .cta-box{ padding:22px; grid-template-columns: 1.1fr .9fr; align-items:center; }
+    }
+
+    @media (min-width: 1024px){
+      .hero{ padding-top:34px; padding-bottom:42px; }
+      .card{ padding:18px; }
+      .cta-box{ padding:26px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- =========================
+    Sticky Header
+  ========================= -->
+  <header class="header" aria-label="상단 내비게이션">
+    <div class="container">
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="홈으로">
+          <span class="logo" aria-hidden="true"></span>
+          <span>FinMVP</span>
+        </a>
+
+        <nav class="nav" aria-label="섹션 이동">
+          <a href="#problem">문제</a>
+          <a href="#solution">해결</a>
+          <a href="#preview">사용 방식</a>
+          <a href="#research">리서치</a>
+        </nav>
+
+        <button class="btn btn-primary" type="button" data-scroll-to="cta" aria-label="베타 신청 섹션으로 이동">
+          무료 베타 신청하기
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- =========================
+      1) HERO SECTION
+    ========================= -->
+    <section class="section hero" aria-label="서비스 소개">
+      <div class="container">
+        <div class="hero-wrap">
+          <div class="hero-copy">
+            <span class="kicker"><span class="dot" aria-hidden="true"></span>중학생 금융 학습 플랫폼 MVP</span>
+
+            <h1>
+              돈은 학교에서 배우지만<br />
+              돈을 써보는 경험은 없습니다
+            </h1>
+
+            <p>
+              중학생을 위한 5분 금융 학습 + 투자 시뮬레이션<br />
+              금융을 외우는 것이 아니라 경험하는 방식
+            </p>
+
+            <ul class="bullets" aria-label="핵심 기능">
+              <li><span class="check" aria-hidden="true">✓</span><span>5~10분 금융 마이크로 학습</span></li>
+              <li><span class="check" aria-hidden="true">✓</span><span>퀴즈로 이해도 확인</span></li>
+              <li><span class="check" aria-hidden="true">✓</span><span>모의 투자 시뮬레이션</span></li>
+            </ul>
+
+            <div class="hero-actions" aria-label="주요 행동">
+              <button class="btn btn-primary" type="button" data-scroll-to="cta">
+                무료 베타 신청하기
+              </button>
+              <a class="btn btn-ghost" href="#preview">
+                서비스 사용 방식 보기
+              </a>
+            </div>
+          </div>
+
+          <!-- 간단한 일러스트 영역 (placeholder) -->
+          <div class="illus" role="img" aria-label="일러스트 영역(placeholder)">
+            <div class="illus-label">Illustration Placeholder</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+      2) PROBLEM SECTION
+    ========================= -->
+    <section class="section" id="problem" aria-label="문제 공감">
+      <div class="container">
+        <h2>지금의 금융교육은 이렇게 진행됩니다</h2>
+        <p>
+          대부분의 금융 수업은<br />
+          설명 중심 강의와 시험 중심 학습입니다.
+        </p>
+        <p>
+          하지만 학생들은<br />
+          돈을 실제로 관리해보는 경험이 없습니다.
+        </p>
+
+        <div class="grid cols-3" aria-label="문제 데이터 카드">
+          <article class="card stat">
+            <div>
+              <strong>55.6%</strong>
+              <div><span>금융교육은 강의 중심 수업</span></div>
+            </div>
+          </article>
+
+          <article class="card stat">
+            <div>
+              <strong>33.3%</strong>
+              <div><span>금융 수업이 재미없다고 응답</span></div>
+            </div>
+          </article>
+
+          <article class="card stat">
+            <div>
+              <strong>57.1%</strong>
+              <div><span>금융교육이 있는지 몰랐음</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+      3) SOLUTION SECTION
+    ========================= -->
+    <section class="section" id="solution" aria-label="해결책 소개">
+      <div class="container">
+        <h2>금융을 배우는 가장 쉬운 방법</h2>
+        <p>영상 → 퀴즈 → 투자 경험</p>
+        <p>3단계 금융 학습 플랫폼</p>
+
+        <div class="grid cols-3" aria-label="3단계 카드">
+          <article class="card">
+            <h3>1</h3>
+            <p style="margin:0;color:rgba(15,23,42,.78);font-weight:800;">5분 금융 영상</p>
+            <p style="margin-top:8px;">짧고 집중도 높은 콘텐츠로 핵심 개념을 빠르게 이해합니다.</p>
+          </article>
+
+          <article class="card">
+            <h3>2</h3>
+            <p style="margin:0;color:rgba(15,23,42,.78);font-weight:800;">개념 확인 퀴즈</p>
+            <p style="margin-top:8px;">바로 풀어보며 이해도를 확인하고, 기억을 강화합니다.</p>
+          </article>
+
+          <article class="card">
+            <h3>3</h3>
+            <p style="margin:0;color:rgba(15,23,42,.78);font-weight:800;">투자 시뮬레이션</p>
+            <p style="margin-top:8px;">가상의 자산으로 선택하고 결과를 보며 ‘경험’으로 학습합니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+      4) PRODUCT PREVIEW
+    ========================= -->
+    <section class="section" id="preview" aria-label="서비스 사용 방식">
+      <div class="container">
+        <h2>서비스 사용 방식</h2>
+        <p>사용 흐름</p>
+
+        <div class="grid cols-4" aria-label="4단계 카드">
+          <article class="card">
+            <h3>1.</h3>
+            <p style="margin:0;color:rgba(15,23,42,.78);font-weight:800;">5분 금융 영상 시청</p>
+            <p style="margin-top:8px;">부담 없는 길이로 매일 한 번 습관화합니다.</p>
+          </article>
+
+          <article class="card">
+            <h3>2.</h3>
+            <p style="margin:0;color:rgba(15,23,42,.78);font-weight:800;">퀴즈 풀기</p>
+            <p style="margin-top:8px;">정답/오답 피드백으로 개념을 확실히 잡습니다.</p>
+          </article>
+
+          <article class="card">
+            <h3>3.</h3>
+            <p style="margin:0;color:rgba(15,23,42,.78);font-weight:800;">투자 선택</p>
+            <p style="margin-top:8px;">상황에 맞게 선택하고 의사결정을 연습합니다.</p>
+          </article>
+
+          <article class="card">
+            <h3>4.</h3>
+            <p style="margin:0;color:rgba(15,23,42,.78);font-weight:800;">자산 변화 확인</p>
+            <p style="margin-top:8px;">결과를 보며 리스크/보상을 자연스럽게 이해합니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+      5) USER RESEARCH SECTION
+    ========================= -->
+    <section class="section" id="research" aria-label="학생 리서치 결과">
+      <div class="container">
+        <h2>학생 리서치 결과</h2>
+
+        <div class="grid cols-3" aria-label="리서치 데이터 카드">
+          <article class="card stat">
+            <div>
+              <strong>68.8%</strong>
+              <div><span>15분 이하 영상 선호</span></div>
+            </div>
+          </article>
+
+          <article class="card stat">
+            <div>
+              <strong>62.5%</strong>
+              <div><span>캐릭터 성장 선호</span></div>
+            </div>
+          </article>
+
+          <article class="card stat">
+            <div>
+              <strong>87.5%</strong>
+              <div><span>금융교육 필요성 인식</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+      6) CTA SECTION
+    ========================= -->
+    <section class="section" id="cta" aria-label="베타 테스트 신청">
+      <div class="container">
+        <div class="card cta-box">
+          <div>
+            <h2>베타 테스트 신청</h2>
+            <p>
+              지금 신청하면<br />
+              서비스를 가장 먼저 체험할 수 있습니다
+            </p>
+            <p class="hint">입력하신 이메일은 베타 안내 목적 외에는 사용하지 않습니다.</p>
+          </div>
+
+          <form class="form" id="betaForm" novalidate aria-label="베타 신청 폼">
+            <div class="field">
+              <label for="email">이메일 입력</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                inputmode="email"
+                autocomplete="email"
+                placeholder="example@email.com"
+                aria-describedby="emailError"
+                required
+              />
+              <div class="error" id="emailError" role="alert">올바른 이메일 형식을 입력해주세요.</div>
+            </div>
+
+            <button class="btn btn-primary" type="submit">
+              베타 테스트 신청
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer" aria-label="푸터">
+      <div class="container">
+        <div class="footer-inner">
+          <div><strong>FinMVP</strong> · 중학생 금융 학습 플랫폼 MVP</div>
+          <div>© <span id="year"></span> FinMVP. All rights reserved.</div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    /**
+     * 단일 파일 랜딩페이지 JS
+     * - 부드러운 스크롤 (CTA 클릭 시 CTA 섹션으로 이동)
+     * - 이메일 폼 검증 (형식 체크 + 오류 메시지)
+     * - 제출 이벤트 (완료 알림 alert)
+     */
+
+    (function () {
+      // 연도 자동 표시
+      var yearEl = document.getElementById("year");
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      // 부드러운 스크롤 (data-scroll-to="cta")
+      function scrollToSection(sectionId) {
+        var el = document.getElementById(sectionId);
+        if (!el) return;
+
+        // sticky header 높이 보정
+        var header = document.querySelector(".header");
+        var headerH = header ? header.getBoundingClientRect().height : 0;
+
+        var top = el.getBoundingClientRect().top + window.scrollY - headerH - 10;
+        window.scrollTo({ top: top, behavior: "smooth" });
+      }
+
+      document.addEventListener("click", function (e) {
+        var target = e.target;
+        if (!(target instanceof Element)) return;
+
+        var btn = target.closest("[data-scroll-to]");
+        if (!btn) return;
+
+        var sectionId = btn.getAttribute("data-scroll-to");
+        if (!sectionId) return;
+
+        e.preventDefault();
+        scrollToSection(sectionId);
+
+        // CTA 폼으로 이동한 뒤 입력 포커스 (UX)
+        if (sectionId === "cta") {
+          window.setTimeout(function () {
+            var email = document.getElementById("email");
+            if (email) email.focus();
+          }, 450);
+        }
+      });
+
+      // 이메일 검증
+      var form = document.getElementById("betaForm");
+      var emailInput = document.getElementById("email");
+      var errorEl = document.getElementById("emailError");
+
+      function isValidEmail(value) {
+        // 간단하지만 실용적인 이메일 형식 체크 (외부 라이브러리 없이)
+        // - 공백 없음, @ 1개, 도메인에 점 포함
+        var v = String(value || "").trim();
+        var re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        return re.test(v);
+      }
+
+      function showError(message) {
+        if (!errorEl) return;
+        errorEl.textContent = message;
+        errorEl.style.display = "block";
+        if (emailInput) {
+          emailInput.setAttribute("aria-invalid", "true");
+        }
+      }
+
+      function clearError() {
+        if (!errorEl) return;
+        errorEl.style.display = "none";
+        if (emailInput) {
+          emailInput.removeAttribute("aria-invalid");
+        }
+      }
+
+      if (emailInput) {
+        emailInput.addEventListener("input", function () {
+          // 입력 중에는 에러를 부드럽게 해제
+          if (errorEl && errorEl.style.display === "block") {
+            if (isValidEmail(emailInput.value)) clearError();
+          }
+        });
+
+        emailInput.addEventListener("blur", function () {
+          // 포커스 아웃 시에도 가볍게 검증
+          if (!emailInput.value) return;
+          if (!isValidEmail(emailInput.value)) {
+            showError("올바른 이메일 형식을 입력해주세요.");
+          } else {
+            clearError();
+          }
+        });
+      }
+
+      if (form) {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          var email = emailInput ? emailInput.value.trim() : "";
+          if (!isValidEmail(email)) {
+            showError("올바른 이메일 형식을 입력해주세요.");
+            if (emailInput) emailInput.focus();
+            return;
+          }
+
+          clearError();
+
+          alert("감사합니다!\\n베타 테스트 신청이 완료되었습니다.");
+
+          // 실제 MVP 검증용이라면 여기서 서버 전송을 붙일 수 있음 (현재 요구사항: 순수 단일 파일)
+          if (emailInput) emailInput.value = "";
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
+
